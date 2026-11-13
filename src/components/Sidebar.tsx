@@ -47,6 +47,9 @@ export function Sidebar({
   onCloseMobile,
 }: SidebarProps) {
   const [attendanceOpen, setAttendanceOpen] = useState(true);
+  const [logoError, setLogoError] = useState(false);
+
+  const logoUrl = 'https://i.imgur.com/eBgojVX.png';
 
   const navItems: {
     id: ActiveNavView;
@@ -96,15 +99,39 @@ export function Sidebar({
           {collapsed ? (
             <div
               title="AKU ANTAR — PT Artha Kreasi Utama (ANTARAJA)"
-              className="flex h-9 w-9 items-center justify-center rounded bg-[#6E2B8B] text-white text-xs font-bold tracking-tight"
+              className="flex h-10 w-10 items-center justify-center rounded border border-slate-200 bg-white p-1 overflow-hidden shrink-0"
             >
-              AK
+              {!logoError ? (
+                <img
+                  src={logoUrl}
+                  alt="Logo AKU ANTAR"
+                  referrerPolicy="no-referrer"
+                  onError={() => setLogoError(true)}
+                  className="h-full w-full object-contain"
+                />
+              ) : (
+                <span className="flex h-full w-full items-center justify-center rounded bg-[#6E2B8B] text-white text-xs font-bold tracking-tight">
+                  AK
+                </span>
+              )}
             </div>
           ) : (
             <div>
-              <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded bg-[#6E2B8B] text-white text-xs font-bold tracking-tight">
-                  AK
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded border border-slate-200 bg-white p-1 overflow-hidden shrink-0">
+                  {!logoError ? (
+                    <img
+                      src={logoUrl}
+                      alt="Logo AKU ANTAR"
+                      referrerPolicy="no-referrer"
+                      onError={() => setLogoError(true)}
+                      className="h-full w-full object-contain"
+                    />
+                  ) : (
+                    <span className="flex h-full w-full items-center justify-center rounded bg-[#6E2B8B] text-white text-xs font-bold tracking-tight">
+                      AK
+                    </span>
+                  )}
                 </div>
                 <span className="text-base font-bold tracking-tight text-slate-900">
                   AKU ANTAR
