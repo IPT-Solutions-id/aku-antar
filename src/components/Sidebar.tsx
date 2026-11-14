@@ -47,9 +47,16 @@ export function Sidebar({
   onCloseMobile,
 }: SidebarProps) {
   const [attendanceOpen, setAttendanceOpen] = useState(true);
+  const [logoSrc, setLogoSrc] = useState('/logo-aku.png');
   const [logoError, setLogoError] = useState(false);
 
-  const logoUrl = 'https://i.imgur.com/eBgojVX.png';
+  const handleLogoError = () => {
+    if (logoSrc === '/logo-aku.png') {
+      setLogoSrc('https://i.imgur.com/eBgojVX.png');
+    } else {
+      setLogoError(true);
+    }
+  };
 
   const navItems: {
     id: ActiveNavView;
@@ -86,7 +93,7 @@ export function Sidebar({
   const renderSidebarContent = (collapsed: boolean) => (
     <div
       className={`flex h-full flex-col justify-between bg-white border-r border-slate-200 py-5 ${
-        collapsed ? 'px-2.5 items-center' : 'px-4'
+        collapsed ? 'px-2 items-center' : 'px-4'
       }`}
     >
       <div className={`space-y-5 w-full ${collapsed ? 'flex flex-col items-center' : ''}`}>
@@ -99,14 +106,14 @@ export function Sidebar({
           {collapsed ? (
             <div
               title="AKU ANTAR — PT Artha Kreasi Utama (ANTARAJA)"
-              className="flex h-10 w-10 items-center justify-center rounded border border-slate-200 bg-white p-1 overflow-hidden shrink-0"
+              className="flex h-10 w-14 items-center justify-center rounded border border-slate-200 bg-white px-1.5 py-1 overflow-hidden shrink-0"
             >
               {!logoError ? (
                 <img
-                  src={logoUrl}
+                  src={logoSrc}
                   alt="Logo AKU ANTAR"
                   referrerPolicy="no-referrer"
-                  onError={() => setLogoError(true)}
+                  onError={handleLogoError}
                   className="h-full w-full object-contain"
                 />
               ) : (
@@ -116,15 +123,15 @@ export function Sidebar({
               )}
             </div>
           ) : (
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded border border-slate-200 bg-white p-1 overflow-hidden shrink-0">
+                <div className="flex h-9 w-[76px] items-center justify-center rounded border border-slate-200 bg-white px-1.5 py-1 overflow-hidden shrink-0">
                   {!logoError ? (
                     <img
-                      src={logoUrl}
+                      src={logoSrc}
                       alt="Logo AKU ANTAR"
                       referrerPolicy="no-referrer"
-                      onError={() => setLogoError(true)}
+                      onError={handleLogoError}
                       className="h-full w-full object-contain"
                     />
                   ) : (
@@ -133,7 +140,7 @@ export function Sidebar({
                     </span>
                   )}
                 </div>
-                <span className="text-base font-bold tracking-tight text-slate-900">
+                <span className="text-base font-bold tracking-tight text-slate-900 truncate">
                   AKU ANTAR
                 </span>
               </div>
